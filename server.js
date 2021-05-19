@@ -19,13 +19,13 @@ mongoose.connection
 .on("error", (error) => console.log(error))
 
 // models
-const CheeseSchema = new mongoose.Schema({
+const CheesesSchema = new mongoose.Schema({
     name: String,
     image: String,
     maker: String
 })
 
-const Cheese = mongoose.model("Cheese", CheeseSchema)
+const Cheeses = mongoose.model("Cheese", CheesesSchema)
 
 // middleware
 app.use(cors());
@@ -36,36 +36,36 @@ app.get("/", (req, res) => {
     res.send("Airborne!")
 });
 
-app.get("/cheese", async (req, res) => {
+app.get("/cheeses", async (req, res) => {
     try{
-        res.json(await Cheese.find({}));
+        res.json(await Cheeses.find({}));
     } catch (error) {
         res.status(400).json(error);
     }
 });
 
 // cheese create route
-app.post("/cheese", async (req, res) => {
+app.post("/cheeses", async (req, res) => {
     try{
-        res.json(await Cheese.create(req.body))
+        res.json(await Cheeses.create(req.body))
     } catch (error) {
         res.status(400).json(error)
     }
 });
 
 // cheese update route
-app.put("/cheese/:id", async (req, res) => {
+app.put("/cheeses/:id", async (req, res) => {
     try {
-        res.json(await Cheese.findByIdAndUpdate(req.params.id, req.body, {new: true}))
+        res.json(await Cheeses.findByIdAndUpdate(req.params.id, req.body, {new: true}))
     } catch (error) {
         res.status(400).json(error)
     }
 });
 
 // delete
-app.delete("/cheese/:id", async (req, res) => {
+app.delete("/cheeses/:id", async (req, res) => {
     try {
-        res.json(await Cheese.findByIdAndRemove(req.params.id, req.body))
+        res.json(await Cheeses.findByIdAndRemove(req.params.id, req.body))
     } catch (error) {
         res.status(400).json(error)
     }
